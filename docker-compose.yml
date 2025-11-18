@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  ppt-generator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ppt-generator-ai:latest
+    container_name: ppt-generator
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - QUALITY_THRESHOLD=45
+      - MAX_RETRIES=4
+      - OUTPUT_DIR=/app/Output
+      - LOG_DIR=/app/logs
+    volumes:
+      # Mount Input directory for local HTML files
+      - ./Input:/app/Input:ro
+      # Mount Output directory to persist generated presentations
+      - ./Output:/app/Output
+      # Mount logs directory
+      - ./logs:/app/logs
+      # Mount metrics directory
+      - ./metrics:/app/metrics
+    # Override CMD to prevent default --help
+    command: --url https://example.com --slides auto
+    restart: "no"
+
+  # Optional: Development service with live code mounting
+  ppt-generator-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ppt-generator-ai:dev
+    container_name: ppt-generator-dev
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - QUALITY_THRESHOLD=45
+    volumes:
+      - ./Input:/app/Input
+      - ./Output:/app/Output
+      - ./logs:/app/logs
+      - ./metrics:/app/metrics
+      # Mount source for development
+      - ./modules:/app/modules
+      - ./main.py:/app/main.py
+    command: --help
+    profiles:
+      - dev

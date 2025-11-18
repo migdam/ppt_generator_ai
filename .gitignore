@@ -36,11 +36,22 @@ env/
 Input/
 Output/
 *.pptx
-*.log
 
-# API Keys
+# Logs and metrics (production)
+logs/
+*.log
+metrics/
+*.jsonl
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# API Keys and Secrets
 .env
 *.key
+config.json
 
 # OS
 .DS_Store

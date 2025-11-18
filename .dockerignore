@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Git
+.git/
+.gitignore
+
+# Output and logs (will be mounted as volumes)
+Output/
+logs/
+metrics/
+
+# Tests
+tests/
+pytest.ini
+.coverage
+htmlcov/
+
+# Documentation
+*.md
+ARCHITECTURE.md
+EXAMPLES.md
+LICENSE
+
+# CI/CD
+.github/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Config files that might contain secrets
+config.json
+.env
