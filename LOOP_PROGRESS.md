@@ -38,6 +38,14 @@
   - Before the AI judge runs, run deterministic lint for overflow, empty slides and bullet length.
   - Feed the findings back to the generator.
 - [ ] Extraction keeps page boilerplate and truncates content at 8,000 characters. Use main-content extraction such as trafilatura or readability, and a much larger budget.
+- [ ] No-AI mode: `--no-ai` builds the plan with code alone, with no model and no API key. Use it automatically, with a notice, when `GEMINI_API_KEY` is unset.
+  - Deck title from `<h1>` or `<title>`. Each `<h2>` section becomes a slide. Split long sections into "(cont.)" slides and merge tiny ones to hit the slide count.
+  - Bullets: keep `<ul>`/`<ol>` items as they are. For paragraphs, pick the 3–5 most important sentences with an extractive algorithm such as TextRank, then trim to the word limit.
+  - Images go on the slide for the section they appear in, captioned with their alt text or `<figcaption>`.
+  - Charts come only from HTML tables with numeric columns. Numbered step lists become process diagrams.
+  - `general` keeps fewer sentences; `detailed` keeps more and moves extra detail into speaker notes.
+  - The output must pass the same plan schema and render check as AI mode.
+  - Add a fixture HTML page with headings, lists, a numeric table and an image, and an offline test that builds a deck from it with `--no-ai`.
 - [ ] Put the supporting detail from the source in each slide's speaker notes.
 
 ### P2: honesty and cleanup
